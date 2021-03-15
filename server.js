@@ -49,3 +49,13 @@ app.post("/", function (req, res) {
     res.status(200).send(ingredients);
   }
 });
+
+app.delete("/", function (req, res) {
+  var ingredient = req.body;
+  if (!ingredient || ingredient.id === "") {
+    res.status(500).send({ error: "Please enter the valid ingredient id" });
+  } else {
+    ingredients.pop(ingredient);
+    res.status(200).send({ info: "Successfully deleted ingredient" });
+  }
+});
