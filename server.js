@@ -59,3 +59,21 @@ app.delete("/", function (req, res) {
     res.status(200).send({ info: "Successfully deleted ingredient" });
   }
 });
+
+app.put("/ingredient/:ingredientID", function (req, res) {
+  var ingredientID = req.param.ingredientID;
+  var text = req.body.text;
+
+  if (!ingredientID || ingredientID === "" || !text || text === "") {
+    res.status(500).send("you must provide ingredient text");
+  } else {
+    for (var x = 0; x < ingredients.length; x++) {
+      var ing = ingredients[x];
+      if (ing.id === req.param.ingredientID) {
+        ingredients[x].text = text;
+        break;
+      }
+    }
+    res.send(ingredients);
+  }
+});
